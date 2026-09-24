@@ -1,0 +1,145 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system — "Premium Earthwork"
+ * Earthy pine / sand / rust palette for contractor sites.
+ * Swap the values in :root to rebrand for another business.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --font-display: var(--font-serif-display);
+  --font-sans: var(--font-body);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand-specific tokens */
+  --color-pine: var(--pine);
+  --color-pine-deep: var(--pine-deep);
+  --color-forest: var(--forest);
+  --color-sage: var(--sage);
+  --color-sage-soft: var(--sage-soft);
+  --color-sand: var(--sand);
+  --color-sand-warm: var(--sand-warm);
+  --color-cream: var(--cream);
+  --color-rust: var(--rust);
+  --color-ink: var(--ink);
+  --color-stone-mid: var(--stone-mid);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --font-serif-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand palette */
+  --pine: oklch(0.3 0.045 158);
+  --pine-deep: oklch(0.23 0.04 158);
+  --forest: oklch(0.38 0.05 158);
+  --sage: oklch(0.57 0.03 155);
+  --sage-soft: oklch(0.73 0.03 155);
+  --sand: oklch(0.93 0.018 85);
+  --sand-warm: oklch(0.89 0.026 88);
+  --cream: oklch(0.965 0.012 90);
+  --rust: oklch(0.55 0.115 45);
+  --ink: oklch(0.24 0.008 80);
+  --stone-mid: oklch(0.6 0.014 85);
+
+  /* Semantic mapping */
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: var(--cream);
+  --card-foreground: var(--ink);
+  --popover: var(--cream);
+  --popover-foreground: var(--ink);
+  --primary: var(--pine);
+  --primary-foreground: var(--cream);
+  --secondary: var(--sand);
+  --secondary-foreground: var(--ink);
+  --muted: var(--sand);
+  --muted-foreground: var(--stone-mid);
+  --accent: var(--rust);
+  --accent-foreground: var(--cream);
+  --destructive: oklch(0.51 0.17 27);
+  --destructive-foreground: var(--cream);
+  --border: oklch(0.24 0.008 80 / 12%);
+  --input: oklch(0.24 0.008 80 / 18%);
+  --ring: var(--pine);
+
+  /* Photo scrims — reused by hero and CTA bands */
+  --scrim-left: linear-gradient(
+    90deg,
+    oklch(0.23 0.04 158 / 0.88) 0%,
+    oklch(0.23 0.04 158 / 0.6) 45%,
+    oklch(0.23 0.04 158 / 0.22) 100%
+  );
+  --scrim-bottom: linear-gradient(
+    0deg,
+    oklch(0.23 0.04 158 / 0.78) 0%,
+    oklch(0.23 0.04 158 / 0) 60%
+  );
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+}
+
+@utility scrim-left {
+  background-image: var(--scrim-left);
+}
+
+@utility scrim-bottom {
+  background-image: var(--scrim-bottom);
+}
+
+@utility eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
