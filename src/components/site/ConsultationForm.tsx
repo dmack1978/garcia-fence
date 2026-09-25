@@ -89,6 +89,8 @@ export function ConsultationForm() {
           </div>
           <button
             type="button"
+            data-analytics-event="estimate_click"
+            data-analytics-location="estimate_form"
             onClick={() => setNotice(business.formDisabledMessage)}
             className="mt-6 w-full rounded-md bg-rust px-6 py-3.5 text-sm font-bold text-cream transition hover:brightness-110"
           >

@@ -17,6 +17,7 @@ export function Services() {
             <a
               key={service.slug}
               href="#contact"
+              data-analytics-label={`${business.actions.service}: ${service.title}`}
               className="group overflow-hidden rounded-xl border border-border bg-cream transition hover:border-pine/40"
             >
               <SiteImage

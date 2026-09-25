@@ -5,7 +5,7 @@ export function FinalCta() {
   const { finalCta } = business;
 
   return (
-    <section className="relative">
+    <section className="relative" data-analytics-location="closing_cta">
       <div className="relative min-h-[480px] sm:h-[52vh] sm:min-h-[420px]">
         <SiteImage
           image={finalCta.image}
