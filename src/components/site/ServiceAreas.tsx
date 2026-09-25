@@ -4,9 +4,9 @@ export function ServiceAreas() {
   return (
     <section id="areas" className="py-20 lg:py-28">
       <div className="mx-auto max-w-3xl px-5 text-center sm:px-8">
-        <p className="eyebrow mb-3 text-rust">Service area</p>
+        <p className="eyebrow mb-3 text-rust">{business.sections.areasEyebrow}</p>
         <h2 className="mb-6 text-3xl leading-tight sm:text-4xl">
-          Proudly serving {business.city} and nearby towns
+          {business.sections.areasHeading}
         </h2>
         <p className="mb-8 leading-relaxed text-ink/75">{business.serviceAreaBody}</p>
         <ul className="flex flex-wrap justify-center gap-2.5">

@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system — "Premium Earthwork"
- * Earthy pine / sand / rust palette for contractor sites.
+ * Shared contractor design system.
+ * Brand values stay here; existing utility names are kept for compatibility.
  * Swap the values in :root to rebrand for another business.
  */
 
@@ -61,17 +61,17 @@
   --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
 
   /* Brand palette */
-  --pine: oklch(0.3 0.045 158);
-  --pine-deep: oklch(0.23 0.04 158);
-  --forest: oklch(0.38 0.05 158);
+  --pine: oklch(0.3 0.035 125);
+  --pine-deep: oklch(0.23 0.025 125);
+  --forest: oklch(0.38 0.05 125);
   --sage: oklch(0.57 0.03 155);
-  --sage-soft: oklch(0.73 0.03 155);
+  --sage-soft: oklch(0.86 0.055 120);
   --sand: oklch(0.93 0.018 85);
   --sand-warm: oklch(0.89 0.026 88);
   --cream: oklch(0.965 0.012 90);
-  --rust: oklch(0.55 0.115 45);
+  --rust: oklch(0.43 0.1 125);
   --ink: oklch(0.24 0.008 80);
-  --stone-mid: oklch(0.6 0.014 85);
+  --stone-mid: oklch(0.48 0.014 85);
 
   /* Semantic mapping */
   --background: var(--cream);
@@ -97,14 +97,14 @@
   /* Photo scrims — reused by hero and CTA bands */
   --scrim-left: linear-gradient(
     90deg,
-    oklch(0.23 0.04 158 / 0.88) 0%,
-    oklch(0.23 0.04 158 / 0.6) 45%,
-    oklch(0.23 0.04 158 / 0.22) 100%
+    oklch(0.2 0.025 125 / 0.88) 0%,
+    oklch(0.2 0.025 125 / 0.6) 45%,
+    oklch(0.2 0.025 125 / 0.22) 100%
   );
   --scrim-bottom: linear-gradient(
     0deg,
-    oklch(0.23 0.04 158 / 0.78) 0%,
-    oklch(0.23 0.04 158 / 0) 60%
+    oklch(0.2 0.025 125 / 0.78) 0%,
+    oklch(0.2 0.025 125 / 0) 60%
   );
 }
 
@@ -142,4 +142,21 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+}
+
+/* Keep section headings clear of the sticky navigation. */
+[id] {
+  scroll-margin-top: 7rem;
+}
+:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

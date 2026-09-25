@@ -1,287 +1,241 @@
-/**
- * ─────────────────────────────────────────────────────────────
- *  BUSINESS CONFIGURATION — the only file you edit per client.
- * ─────────────────────────────────────────────────────────────
- *  Everything business-specific lives here: name, contact info,
- *  services, projects, reviews, service areas, and page copy.
- *  Components read from this file and never hard-code content.
- * ─────────────────────────────────────────────────────────────
- */
-
-import heroImage from "@/assets/hero-retaining-wall.jpg";
-
-import fplLogo from "@/assets/logo_2-fix.png";
-
-import fpStoneWallsSteps from "@/assets/2000_695369a20ba5e.webp";
-import fpRiverRockDeck from "@/assets/2000_689e9dda3f3ec.webp";
-import fpStoneBedWall from "@/assets/2000_695369e469613.webp";
-import fpPaverPatioPath from "@/assets/2000_689e9f647c2f7.webp";
-import fpFrontWallWalkway from "@/assets/2000_695369e469613.webp";
-import fpPaverPatioFirepit from "@/assets/760472255_122125384005348508_8502470735218145707_n.jpg";
-import fpFrontRockBed from "@/assets/2000_689e9f26d22e6.webp";
-import fpDrainageSideYard from "@/assets/2000_689e9f68d319e.jpg";
-import fpCrewPatioBuild from "@/assets/2000_689e9dd610933.webp";
-
-export type Service = {
-  slug: string;
-  title: string;
-  blurb: string;
-  image: string;
+/** Business copy and assets for this contractor. Empty contact fields are hidden. */
+export type SitePhoto = {
+  src: string;
+  srcSet?: string;
   alt: string;
-  /** CSS object-position for cropping, e.g. "50% 60%" */
+  width: number;
+  height: number;
   focus?: string;
 };
+export type Service = { slug: string; title: string; blurb: string; image: SitePhoto };
+export type Project = { title: string; category: string; image: SitePhoto };
+export type Review = { quote: string; author: string; location?: string };
 
-export type Project = {
-  title: string;
-  category: string;
-  image: string;
-  alt: string;
-  focus?: string;
-};
-
-export type Review = {
-  quote: string;
-  author: string;
-  location?: string;
-};
+function photo(name: string, alt: string, focus = "50% 50%", originalHeight = 1542): SitePhoto {
+  const base = `/images/garcia/optimized/${name}`;
+  return {
+    src: `${base}-1024.webp`,
+    srcSet: [640, 1024, 1600].map((width) => `${base}-${width}.webp ${width}w`).join(", "),
+    width: 1024,
+    height: Math.round(originalHeight / 2),
+    alt,
+    focus,
+  };
+}
 
 export const business = {
-  /* ── Identity ───────────────────────────────────────────── */
-  name: "Friendly Pro Landscapes",
-  shortName: "Friendly Pro",
-  initials: "FP",
-  tagline: "Landscapes",
-  city: "Greensboro",
+  name: "Garcia Fence Inc.",
+  city: "Reidsville",
   state: "North Carolina",
   stateAbbr: "NC",
-  region: "Guilford County",
-  owner: "Ben Miller",
-  address: "1703 Biscayne Drive, Greensboro, NC 27410",
-
-  /* ── Logo — authentic Friendly Pro Landscapes mark ──────── */
-  logo: fplLogo,
-  logoAlt: "Friendly Pro Landscapes logo",
-
-  /* ── Contact ────────────────────────────────────────────── */
-  phoneDisplay: "1-336-392-8077",
-  phoneHref: "tel:+13363928077",
-  email: "ben@friendlyprolandscapes.com",
-  hours: "Mon–Sat, 7:00am – 6:00pm",
-  socialLinks: [
-    { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61590455255069" },
-  ] as { label: string; href: string }[],
-
-  /* ── Demo mode ──────────────────────────────────────────── */
+  // Add only verified details. No placeholder contact links are rendered.
+  owner: "",
+  address: "",
+  phoneDisplay: "(336) 348-6848",
+  phoneHref: "tel:+13363486848",
+  email: "",
+  hours: "",
+  socialLinks: [] as { label: string; href: string }[],
+  logo: {
+    src: "/images/garcia/optimized/logo.webp",
+    alt: "Garcia Fence Inc. logo",
+    width: 462,
+    height: 320,
+  },
+  favicon: "/favicon.png",
   isDemo: true,
   demoNotice:
-    "Website concept prepared for Friendly Pro Landscapes. This is not the company's current official website.",
-  formDisabledMessage: "This form is disabled on the demonstration website.",
-
-  /* ── Hero copy ──────────────────────────────────────────── */
+    "Website concept prepared for Garcia Fence Inc. This is not the company's current official website.",
+  formDisabledMessage:
+    "This concept form does not send or save information. Nothing was submitted. Please call (336) 348-6848 for a free estimate.",
+  actions: {
+    primary: "Get a Free Estimate",
+    primaryShort: "Free Estimate",
+    secondary: "View Our Work",
+    service: "Get a Free Estimate",
+    form: "Request a Free Estimate",
+  },
   hero: {
-    eyebrow: "Greensboro, North Carolina",
-    heading:
-      "Transform Your Outdoor Space!",
+    eyebrow: "Garcia Fence Inc. · Reidsville, NC",
+    heading: "Fence installation in Reidsville, NC",
     subheading:
-      "Drainage, landscaping and hardscape solutions for homeowners throughout Greensboro and the Triad.",
-    image: heroImage,
-    // NOTE: stand-in hero photograph, not a Friendly Pro project.
-    alt: "Tiered natural stone retaining wall with landscape lighting at sunset",
+      "Need a new fence for your home, pool, business, or property? Garcia Fence installs privacy, vinyl, aluminum, chain-link and agricultural fencing in Reidsville. Call for a free estimate.",
+    image: photo(
+      "vinyl_big1",
+      "White vinyl privacy fence enclosing a backyard beside a two-story home",
+      "60% 56%",
+    ),
   },
-
-  /* ── Trust strip — factual statements only ──────────────── */
-  trustPoints: [
-    "Greensboro, North Carolina",
-    "Drainage solutions",
-    "Landscape install & renovation",
-    "Hardscape, retaining walls & walkways",
-    "Lawncare",
-  ],
-
-  /* ── About / why choose ─────────────────────────────────── */
+  trustPoints: ["Reidsville, NC", "Residential & Commercial", "Free Estimates"],
+  sections: {
+    servicesEyebrow: "Fencing options",
+    servicesHeading: "Fencing for homes, businesses & properties",
+    servicesBody:
+      "We install fences for yards, pools, businesses and farms. Need a gate or a fence repaired? We do that too. Tell us what you need and ask for a free estimate.",
+    projectsEyebrow: "Our work",
+    projectsHeading: "Fences we’ve installed",
+    aboutEyebrow: "About Garcia Fence",
+    reviewsHeading: "What our customers say",
+    areasEyebrow: "Our location",
+    areasHeading: "A fence company in Reidsville, NC",
+  },
   about: {
-    heading: "A local crew that treats your yard like its own",
-    body: "Friendly Pro Landscapes is a Greensboro-based crew led by Ben Miller. We handle drainage solutions, landscape installation and renovation, hardscape work including retaining walls and walkways, and seasonal lawncare — from the first site walk to the final cleanup.",
+    heading: "New fences, gates & fence repair",
+    body: "Garcia Fence Inc. installs and repairs fences for homeowners, businesses and property owners in Reidsville, NC. Whether you need more privacy in the yard, a fence around the pool, or a gate for your property, give us a call. We’ll talk through the job and help you choose a fence.",
     points: [
-      "One crew from consultation through completion",
-      "Drainage, landscape install, hardscape and lawncare",
-      "Based in Greensboro, North Carolina",
+      "Residential, commercial and agricultural fencing",
+      "Fence installation, gates and repairs",
+      "Free estimates for your fence project",
     ],
-    image: fpCrewPatioBuild,
-    alt: "Friendly Pro crew building a paver patio and deck landing behind a Greensboro home",
+    image: photo(
+      "privacy_fence2",
+      "Horizontal privacy fence with dark posts following a shaded property line",
+      "52% 50%",
+    ),
   },
-
-  /* ── Services ───────────────────────────────────────────── */
   services: [
     {
-      slug: "drainage-solutions",
-      title: "Drainage Solutions",
+      slug: "vinyl-fencing",
+      title: "Vinyl fencing",
       blurb:
-        "French drains, downspout extensions, river rock channels and grading that move water away from the foundation and stop pooling in the yard.",
-      image: fpDrainageSideYard,
-      alt: "River rock drainage channel running along the side of a home to the driveway",
-      focus: "50% 65%",
+        "Vinyl fences for backyard privacy and space around your home. Ask us about a fence and gate layout that works for your yard.",
+      image: photo("vinyl_big1", "White vinyl privacy fence with a gate beside a home", "60% 60%"),
     },
     {
-      slug: "landscape-install-renovation",
-      title: "Landscape Install & Renovation",
+      slug: "privacy-fencing",
+      title: "Wood & privacy fencing",
       blurb:
-        "New beds, plantings, stone edging, mulch and complete yard renovations that make the front and back yard feel finished.",
-      image: fpStoneBedWall,
-      alt: "Curved stacked stone bed wall with fresh mulch and mature trees in a front yard",
-      focus: "50% 58%",
+        "Want more privacy from the road or next door? We install wood and privacy fences for yards and homes.",
+      image: photo("privacy_fence2", "Brown horizontal privacy panels framed by dark fence posts"),
     },
     {
-      slug: "hardscape-retaining-walls-walkways",
-      title: "Hardscape (Retaining Walls & Walkways)",
+      slug: "aluminum-fencing",
+      title: "Aluminum fencing",
       blurb:
-        "Natural stone and block retaining walls, paver walkways, steps and patios built on a proper base so they stay level and look right for years.",
-      image: fpStoneWallsSteps,
-      alt: "Friendly Pro stacked stone retaining walls flanking brick front entry steps",
-      focus: "50% 40%",
+        "Aluminum fencing for yards and pools when you want a fence without blocking the view. We can include gates where you need access.",
+      image: photo("aluminum_fence1", "Black aluminum fence around an open lawn", "50% 60%"),
     },
     {
-      slug: "lawncare",
-      title: "Lawncare",
+      slug: "chain-link-fencing",
+      title: "Chain-link fencing",
       blurb:
-        "Aeration, seeding, mowing and ongoing lawn maintenance that keeps turf thick, healthy and presentable through the season.",
-      image: fpFrontRockBed,
-      alt: "Front yard river rock bed with maintained lawn wrapping a beige home",
-      focus: "50% 55%",
+        "Chain-link fences for homes, businesses and larger properties. Talk with us about the fence and gates you need.",
+      image: photo(
+        "chain_link_black_vinyl_fence",
+        "Black-coated chain-link fence beside a brick home",
+        "50% 60%",
+      ),
+    },
+    {
+      slug: "pool-fencing",
+      title: "Pool fencing",
+      blurb:
+        "Fence installation around your pool, with gates for access. Call us to discuss your pool area and get a free estimate.",
+      image: photo("pool_fence", "Black metal pool enclosure with a double gate", "50% 58%"),
+    },
+    {
+      slug: "rail-wire-fencing",
+      title: "Agricultural & rail fencing",
+      blurb:
+        "Agricultural, rail and wire fencing for farms and larger properties. We also install gates for access to fields and property.",
+      image: photo(
+        "rail_fence_with_wire",
+        "Timber rail fence with wire mesh beside a grassy field",
+        "50% 55%",
+        1536,
+      ),
     },
   ] satisfies Service[],
-
-  /* ── Featured projects ──────────────────────────────────── */
   projects: [
     {
-      title: "Front entry walls and walkway",
-      category: "Retaining Wall",
-      image: fpFrontWallWalkway,
-      alt: "Stacked stone retaining walls and mulched beds along a front walkway with iron handrail",
-      focus: "50% 55%",
+      title: "Privacy Fence",
+      category: "Privacy fencing",
+      image: photo(
+        "fence_privacy1",
+        "Warm-toned privacy fence stepping along a sloped yard beside a house",
+        "58% 55%",
+      ),
     },
     {
-      title: "Paver patio with fire pit",
-      category: "Hardscaping",
-      image: fpPaverPatioFirepit,
-      alt: "Paver patio with a circular fire pit, stone edging and fresh mulch bed",
-      focus: "50% 65%",
+      title: "Aluminum Fence",
+      category: "Aluminum fencing",
+      image: photo(
+        "aluminum_fence1",
+        "Black aluminum fence with a corner and gate around a lawn",
+        "50% 60%",
+      ),
     },
     {
-      title: "Paver walkway and patio",
-      category: "Hardscaping",
-      image: fpPaverPatioPath,
-      alt: "Paver walkway and patio beside a home with a low stone wall and gravel side path",
-      focus: "50% 70%",
+      title: "Pool Fence",
+      category: "Pool fencing",
+      image: photo(
+        "pool_fence2",
+        "Black metal fencing surrounding a backyard swimming pool",
+        "50% 58%",
+      ),
     },
     {
-      title: "Side yard drainage channel",
-      category: "Drainage",
-      image: fpRiverRockDeck,
-      alt: "River rock drainage bed installed alongside a raised deck and mulched bed",
-      focus: "50% 60%",
+      title: "Commercial Fence",
+      category: "Commercial fencing",
+      image: photo(
+        "commercial_fence1",
+        "Light-colored privacy fence along a commercial parking area",
+        "50% 40%",
+        1536,
+      ),
     },
   ] satisfies Project[],
-
-  /* ── Reviews — add real excerpts only; empty hides section ─ */
-  reviews: [
-    {
-      quote:
-        "Fantastic job. Helped solve eroding and water pooling issue. They were creative and came up with better solutions at a more affordable cost than the 3 other landscapers who quoted us. They were efficient, friendly, professional, and a step above anyone we've had work on our yard. We are beyond impressed and will use them again for any of our yard needs. I yard looks beautiful and no standing water in sight. Couldn't recommend more.",
-      author: "Hayley Harwell",
-    },
-    {
-      quote: "Ben and his team are great! They're reliable and skilled- highly recommend",
-      author: "Adam Kerr",
-    },
-    {
-      quote:
-        "Ben and his crew did our aerating and seeding for us and were awesome. Communicated great while we were setting the work up and were there right on time. Did a really nice job and took his time to discuss other projects we'll probably have them do for us in the future. I would highly recommend Ben for any yard/Landscaping work you may have",
-      author: "Micheal Totman",
-    },
-    {
-      quote:
-        "I highly recommend Ben for the lawn aeration and seeding, he has very reasonable costs and is reliable. You can expect him to communicate and arrive on time, and he does a great job. -Posted October 18th, 2021",
-      author: "Stevie Collins",
-    },
-    {
-      quote:
-        "I highly recommend Ben. I have been using him since 2019 for my aeration & seeding. He communicates well, is attentive to the work and does a thorough job. Delighted to see him continue to grow and thrive in his work. -Posted August 12, 2022",
-      author: "Kimberly Ross",
-    },
-    {
-      quote:
-        "Do yourself a favor and call Ben! He's awesome - proactive, efficient, and (just like the name says) - super friendly! Ben has cared for my lawn for years and it's been such a pleasure working with him. Posted August 12th, 2022",
-      author: "Julia MacFall",
-    },
-    {
-      quote:
-        "Ben and his crew solved my drainage issue. In one day they put in a French drain and now the back yard is not a lake after a heavy rain. Thanks to Ben for making the process easy and for following up to make sure everything was working. I am already thinking of new projects!",
-      author: "Jennifer Mattox",
-    },
-    {
-      quote: "Ben was fast, efficient and I thought very reasonable in his pricing. Highly recommend him!",
-      author: "Scott Orr",
-    },
-    {
-      quote:
-        "Ben and his crew are an excellent investment for your money. He always shows up on time, communicates with me, and has done amazing work with several different jobs for my yard. My husband and I can totally recommend him and his crew.",
-      author: "Jennifer H.",
-    },
-    {
-      quote:
-        "I had Ben and his team install a French Drain system helping move the stream of water from the backyard down through the front yard and out through the street. It has helped get rid of some spots that used to get really wet in the yard, and has improved our ability to grow grass in that area as well.",
-      author: "Gavin T.",
-    },
-    {
-      quote:
-        "Friendly Pro Landscapes were a FIRST CLASS solution to our ongoing water issues. Ben and his crew were very professional, courteous and delivered a final product with which we are very happy. All of this was carried out during a heat wave, but this did not deter their work!",
-      author: "Mark and Esther",
-    },
-  ] as Review[],
-
-  /* ── Service areas ──────────────────────────────────────── */
-  serviceAreas: ["High Point", "Jamestown"],
+  reviews: [] as Review[],
+  // No surrounding towns or coverage radius have been verified.
+  serviceAreas: [] as string[],
   serviceAreaBody:
-    "We're based in Greensboro, North Carolina and work with homeowners in High Point, Jamestown and the surrounding area. If you're not sure whether we cover your neighborhood, just ask.",
-
-  /* ── Final CTA ──────────────────────────────────────────── */
+    "Garcia Fence is based in Reidsville, North Carolina. Call to discuss installation or repair at your home, business or property. We can confirm whether we serve your address.",
   finalCta: {
-    heading: "Planning an outdoor project?",
-    body: "Request a consultation and we'll walk your property, answer your questions and put together a written estimate.",
-    image: fpPaverPatioFirepit,
-    alt: "Finished paver patio with fire pit and mulched beds behind a Greensboro home",
-    focus: "50% 65%",
+    heading: "Ready to talk about your fence project?",
+    body: "Call Garcia Fence to discuss your installation or repair and get a free estimate.",
+    image: photo(
+      "ag_fence2",
+      "Wire fencing with timber posts following a rural property boundary",
+      "50% 60%",
+    ),
   },
-
-  /* ── Form options ───────────────────────────────────────── */
+  contact: {
+    eyebrow: "Let’s talk about your fence",
+    heading: "Request a Free Estimate",
+    descriptionPlaceholder: "For example: a privacy fence along the backyard with a gate.",
+    body: "Need a new fence, a gate, or a repair? Tell us what you have in mind. Call (336) 348-6848 for a free estimate.",
+    demoNote:
+      "This concept form does not currently send or save information. Garcia Fence will not receive entries made here. Please do not enter personal information. Call (336) 348-6848 to request a free estimate.",
+  },
   projectTypes: [
-    "Drainage solution",
-    "Landscape install / renovation",
-    "Retaining wall / walkway",
-    "Patio / outdoor living",
-    "Lawncare",
+    "Vinyl fencing",
+    "Wood / privacy fencing",
+    "Aluminum fencing",
+    "Chain-link fencing",
+    "Pool fencing",
+    "Agricultural / rail fencing",
+    "Commercial fencing",
+    "Gates",
+    "Fence repair",
     "Not sure yet",
   ],
-
-  /* ── Navigation ─────────────────────────────────────────── */
+  footerDescription:
+    "Fence installation, gates and repairs for homes, businesses and properties in Reidsville, NC. Call for a free estimate.",
   nav: [
-    { label: "Services", href: "#services" },
-    { label: "Projects", href: "#projects" },
+    { label: "Fencing", href: "#services" },
+    { label: "View Our Work", href: "#projects" },
     { label: "About", href: "#about" },
-    { label: "Service Areas", href: "#areas" },
-    { label: "Contact", href: "#contact" },
+    { label: "Location", href: "#areas" },
+    { label: "Free Estimate", href: "#contact" },
   ],
-
-  /* ── SEO ────────────────────────────────────────────────── */
   seo: {
-    title:
-      "Friendly Pro Landscapes | Drainage, Landscape & Hardscape in Greensboro, NC",
+    title: "Fence Installation in Reidsville, NC | Garcia Fence Inc.",
     description:
-      "Greensboro, NC contractor for drainage solutions, landscape installation, retaining walls, walkways, patios and lawncare. Request a consultation with Friendly Pro Landscapes.",
+      "Garcia Fence Inc. installs and repairs residential, commercial and agricultural fences in Reidsville, NC. Call (336) 348-6848 for a free estimate.",
+    schemaType: "HomeAndConstructionBusiness",
     noindex: true,
+    // Set the verified public website URL before a production launch.
+    siteUrl: "",
+    image: "/images/garcia/optimized/vinyl_big1-1600.webp",
   },
-} as const;
-
-export type Business = typeof business;
+};

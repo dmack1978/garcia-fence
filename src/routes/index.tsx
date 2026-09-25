@@ -14,27 +14,22 @@ import { ConsultationForm } from "@/components/site/ConsultationForm";
 import { Footer } from "@/components/site/Footer";
 import { MobileCtaBar } from "@/components/site/MobileCtaBar";
 
+const siteUrl = business.seo.siteUrl;
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
-  "@type": "LandscapingBusiness",
+  "@type": business.seo.schemaType,
   name: business.name,
   description: business.seo.description,
-  telephone: business.phoneDisplay,
-  email: business.email,
-  areaServed: business.serviceAreas.map((area) => ({
-    "@type": "City",
-    name: `${area}, ${business.stateAbbr}`,
-  })),
+  ...(siteUrl ? { url: siteUrl } : {}),
+  ...(business.phoneDisplay ? { telephone: business.phoneDisplay } : {}),
+  ...(business.email ? { email: business.email } : {}),
   address: {
     "@type": "PostalAddress",
     addressLocality: business.city,
     addressRegion: business.stateAbbr,
     addressCountry: "US",
+    ...(business.address ? { streetAddress: business.address } : {}),
   },
-  makesOffer: business.services.map((service) => ({
-    "@type": "Offer",
-    itemOffered: { "@type": "Service", name: service.title },
-  })),
 };
 
 export const Route = createFileRoute("/")({
@@ -42,14 +37,20 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: business.seo.title },
       { name: "description", content: business.seo.description },
-      { name: "robots", content: "noindex, nofollow" },
+
       { property: "og:title", content: business.seo.title },
       { property: "og:description", content: business.seo.description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      ...(siteUrl
+        ? [
+            { property: "og:url", content: siteUrl },
+            { property: "og:image", content: new URL(business.seo.image, siteUrl).href },
+            { name: "twitter:image", content: new URL(business.seo.image, siteUrl).href },
+          ]
+        : []),
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: siteUrl ? [{ rel: "canonical", href: siteUrl }] : [],
     scripts: [
       {
         type: "application/ld+json",
@@ -64,7 +65,7 @@ function Index() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main">
         <Hero />
         <TrustStrip />
         <Services />

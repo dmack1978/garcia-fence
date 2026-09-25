@@ -5,10 +5,9 @@ export function Reviews() {
 
   return (
     <section aria-labelledby="reviews-heading" className="bg-pine py-20 text-cream lg:py-28">
-
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <h2 id="reviews-heading" className="mb-12 max-w-2xl text-3xl leading-tight sm:text-4xl">
-          What {business.city} homeowners say
+          {business.sections.reviewsHeading}
         </h2>
         <div className="grid gap-5 md:grid-cols-3">
           {business.reviews.map((review) => (

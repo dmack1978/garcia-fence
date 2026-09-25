@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { business } from "@/config/business";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -77,9 +78,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "robots", content: "noindex, nofollow" },
+      {
+        name: "robots",
+        content: business.isDemo || business.seo.noindex ? "noindex, nofollow" : "index, follow",
+      },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "Friendly Pro Landscapes" },
+      { property: "og:site_name", content: business.name },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -97,7 +101,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "icon", href: business.favicon, type: "image/png" },
     ],
   }),
   shellComponent: RootShell,
